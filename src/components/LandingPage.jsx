@@ -20,9 +20,11 @@ export default function LandingPage(){
       camera.lookAt(0,0,0)
       const light = new THREE.AmbientLight(0xffffff, 1);
       scene.add(light);
-      const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+      const directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
       scene.add( directionalLight );
-      directionalLight.position.set(0,20,50)
+      directionalLight.position.set(20,0,100)
+      directionalLight.target.position.set(-20, 0, 0);
+      scene.add(directionalLight.target);
       
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha:true }); //antialias for quality and alpha for background
       renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
@@ -100,7 +102,7 @@ export default function LandingPage(){
     
   return (
     <div id="section1" className="h-[100vh] relative flex justify-center ">
-      <video src="/cloudVideo3.mp4" className='absolute inset-0 -z-10 ' autoPlay muted loop/>
+      <video src="/cloudVideo31.mp4" className='absolute inset-0 -z-10 ' autoPlay muted loop/>
       <p className='text-9xl font-extrabold text-white text-center top-40 absolute z-0 vertical-stretch'>MASTERING SKY</p>
       <div ref={mountRef} className="absolute inset-0 z-10 h-[100vh] "></div>
       <img id='cloud' src="/cloudimg1.png" className='z-20 absolute -bottom-[30rem] w-full' alt="" />

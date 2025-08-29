@@ -1,13 +1,22 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { getModel } from '../models/model.js';
+import { useScroll, useTransform } from 'motion/react';
 
 export default function CockpitScene(){
   const mountRef2 = useRef(null);
   const sectionRef = useRef(null); 
   const airplaneRef = useRef(null); 
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef, 
+    offset: ['500px start', 'end end'],
+  });
+
+  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   function handleMouse(e) {
+    if(airplaneRef.current.position.z == 0){
       const containerRect = mountRef2.current.getBoundingClientRect();
       const xInContainer = e.clientX - containerRect.left;
       const yInContainer = e.clientY - containerRect.top;
@@ -16,20 +25,31 @@ export default function CockpitScene(){
       const xvalue = xInContainer - midwidth;
       const yvalue = yInContainer - midheight;
       console.log({ xvalue, yvalue });
-      airplaneRef.current.rotation.y = xvalue * 0.1
-      airplaneRef.current.rotation.z = yvalue * 0.1
+      airplaneRef.current.rotation.x = xvalue * 0.0001
+      airplaneRef.current.rotation.y = -xvalue * 0.00002
+      airplaneRef.current.rotation.z = yvalue * 0.00005
     }
+  }
 
   useEffect(() => {
     if (!mountRef2.current || !sectionRef.current) return;
     
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 10000);
-    camera.position.set(0, 16, -84);
-    camera.lookAt(0,14,-240)
+    const startTarget = new THREE.Vector3(150,17,0);
+    const endTarget = new THREE.Vector3(40, 16, 0);
+    
+    const startCamPos = new THREE.Vector3(84, 16, 0)
+    const endCamPos = new THREE.Vector3(40, 16, 80)
+    camera.position.copy(startCamPos);
 
     const light = new THREE.AmbientLight(0xffffff, 1.4);
     scene.add(light);
+    const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+    scene.add( directionalLight );
+    directionalLight.position.set(84,16,0)
+    directionalLight.target.position.set(90, 16, 0);
+    scene.add(directionalLight.target);
     
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(mountRef2.current.clientWidth, mountRef2.current.clientHeight);
@@ -44,7 +64,6 @@ export default function CockpitScene(){
     getModel('/SU-35WFMWOLG.glb').then(gltf => {
       const airplaneModel = gltf.scene.clone(true);
       airplaneModel.position.set(0, 0, 0);
-      airplaneModel.rotation.y = Math.PI/2;
       airplaneRef.current = airplaneModel;
       scene.add(airplaneModel);
     });
@@ -52,6 +71,15 @@ export default function CockpitScene(){
     let frameId;
     const animate = () => {
       frameId = requestAnimationFrame(animate);
+
+      const scrollValue = progress.get();
+      camera.position.lerpVectors(startCamPos, endCamPos, scrollValue);
+      const cameraLook = startTarget.clone().lerp(endTarget, scrollValue);
+      camera.lookAt(cameraLook)
+      if (airplaneRef.current) {
+        airplaneRef.current.rotation.x = -scrollValue * (Math.PI / 2);
+      }
+
       renderer.render(scene, camera);
     };
     animate();
@@ -78,7 +106,7 @@ export default function CockpitScene(){
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative h-[200vh]">
+    <div ref={sectionRef} className="relative h-[200vh] cursor-crosshair">
       <div className="sticky top-0 h-screen w-full">
         <video 
           src="/cloudVideo2.mp4" 
@@ -86,8 +114,7 @@ export default function CockpitScene(){
           autoPlay muted loop
         />
         <div 
-          ref={mountRef2} 
-          onMouseMove={handleMouse}
+          ref={mountRef2}
           className="absolute top-0 left-0 h-full w-full z-10"
         />
       </div>

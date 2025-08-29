@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useScroll, useTransform } from 'framer-motion'; // Correct import path
+import { useScroll, useTransform } from 'motion/react'; // Correct import path
 import * as THREE from 'three';
 import { getModel } from '../models/model.js';
 
@@ -30,7 +30,7 @@ export default function TopDownScene(){
     const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
     scene.add( directionalLight );
     directionalLight.position.set(0,300,50)
-    directionalLight.target.position.set(0, 0, 0);
+    directionalLight.target.position.set(0, 25, 0);
     scene.add(directionalLight.target);
     
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
