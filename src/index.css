@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vertical-stretch {
+  display: inline-block;
+  transform: scaleY(2);        /* Stretches the text to 2x its normal height */
+  /* For browser support: */
+  -webkit-transform: scaleY(2);
+  -moz-transform: scaleY(2);
+  -o-transform: scaleY(2);
+}
