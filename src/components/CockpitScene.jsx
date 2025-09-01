@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { getModel } from '../models/model.js';
-import { useScroll, useSpring, useTransform } from 'motion/react';
+import { useScroll, useSpring, useTransform,motion } from 'motion/react';
 
 export default function CockpitScene(){
   const mountRef2 = useRef(null);
@@ -15,11 +15,13 @@ export default function CockpitScene(){
   });
 
   const springMovement = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 40,
+    damping: 50,
   })
 
   const progress = useTransform(springMovement, [0, 1], [0, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.03], [1, 0]);
+  const textOpacity1 = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
 
   function handleMouse(e) {
     if(airplaneRef.current && airplaneRef.current.position.z === 0){
@@ -130,6 +132,25 @@ export default function CockpitScene(){
           className="absolute top-0 left-0 w-full h-full object-cover z-[-10]" 
           autoPlay muted loop
         />
+        {/* Cockpit Section */}
+        <motion.section className="w-full absolute top-10 flex flex-col items-center z-0" style={{opacity:textOpacity}}>
+          <h2 className="text-7xl font-bold mb-4">ADVANCED COCKPIT</h2>
+          <p className="max-w-xl text-center text-gray-600 text-lg">
+            A glass cockpit with digital displays, HUD overlays, and real-time combat awareness.
+          </p>
+          <div className="p-6 rounded-2xl bg-gray-800/50 border border-cyan-500 shadow-xl text-center max-w-lg">
+            <p className="text-cyan-400 font-mono">[ HUD ACTIVE — Move Cursor ]</p>
+          </div>
+        </motion.section>
+
+        <motion.section className="w-fit backdrop-blur-lg absolute bottom-[24rem] right-10 flex flex-col items-end z-0 border border-black p-4" style={{opacity:textOpacity1}}>
+        <h2 className="text-4xl md:text-6xl font-bold mb-4">ARSENAL</h2>
+        <ul className="space-y-4 text-lg text-black">
+          <li>-R-77 Beyond-Visual-Range Missiles</li>
+          <li>-Kh-31 Anti-Ship & Anti-Radar Missiles</li>
+          <li>-Precision Guided Bombs</li>
+        </ul>
+      </motion.section>
 
         {/* Three.js Canvas */}
         <div 

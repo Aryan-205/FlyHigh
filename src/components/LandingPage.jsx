@@ -103,7 +103,7 @@ export default function LandingPage(){
   return (
     <div id="section1" className="h-[100vh] relative flex justify-center ">
       <video src="/cloudVideo31.mp4" className='absolute inset-0 -z-10 scale-x-[-1]' autoPlay muted loop/>
-      <p className='text-4xl font-extrabold text-white text-center top-20 tracking-wider absolute z-0'>The SU-35 Flanker</p>
+      <p className='text-4xl font-extrabold text-white text-center top-20 tracking-wider absolute z-0'>The SU-35 Super Flanker</p>
       <p className='text-9xl font-extrabold text-white text-center top-40 absolute z-0 vertical-stretch'>MASTERING SKY</p>
       <div ref={mountRef} className="absolute inset-0 z-10 h-[100vh] "></div>
       <img id='cloud' src="/cloudimg1.png" className='z-20 absolute -bottom-[30rem] w-full' alt="" />

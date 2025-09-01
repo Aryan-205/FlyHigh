@@ -14,8 +14,8 @@ export default function DownToUp(){
   });
 
   const springMovement = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 40,
+    damping: 50,
   })
 
   const progress = useTransform(springMovement, [0, 1], [0, 1]);
@@ -103,8 +103,11 @@ export default function DownToUp(){
   }, [progress]);
 
   return (
-    <div ref={sectionRef} className="relative h-[250vh]" id="section2">
+    <div ref={sectionRef} className="relative h-[250vh] flex justify-center" id="section2">
       <div className="sticky top-0 h-screen w-full" ref={mountRef2}/>
+      <p className='absolute top-10 text-white text-4xl font-semibold text-center'>The Air Dominance Fighter redefining the skies.</p> 
+      <p className='absolute top-[36rem] text-gray-800 text-7xl font-semibold text-center p-4 backdrop-blur-sm'>Anti Gravity Maneuverability</p> 
+      <p className='absolute bottom-60 text-white text-4xl font-semibold text-center border-white border p-4 backdrop-blur-lg'>IF YOU COULD SEE ME, YOU WERE NEVER THE TARGET</p> 
     </div>
   );
 }

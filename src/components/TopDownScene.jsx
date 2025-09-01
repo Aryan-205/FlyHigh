@@ -14,8 +14,8 @@ export default function TopDownScene(){
   });
 
   const springMovement = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 40,
+    damping: 50,
   })
 
   const progress = useTransform(springMovement, [0, 1], [0, 1]);
@@ -101,8 +101,36 @@ export default function TopDownScene(){
     <div ref={sectionRef} className="relative h-[250vh]" id="section2">
       <img src="/cloudimg1" className='absolute top-0 z-10' alt="" />
       <div className="sticky top-0 h-screen w-full z-0" ref={mountRef2}/>
-      <motion.p whileInView={{opacity:1}} transition={{duration:2}} className='text-5xl font-extrabold text-white text-center top-60 left-20 tracking-wider absolute z-0 vertical-stretch'>The SU-35 Flanker</motion.p>
-      <motion.p className='text-2xl font-semibold text-white text-center top-80 left-20 tracking-wider absolute z-0 vertical-stretch'>Master of the sky. A Force to be reckoned with</motion.p>
+
+      <section className="w-full absolute top-80 flex flex-col items-center z-20">
+        <h2 className="text-4xl md:text-7xl font-bold mb-6 text-white text-center">UNMATCHED PERFORMANCE</h2>
+        <p className="max-w-2xl text-center text-gray-200 text-lg">
+          Thrust-vectoring engines, supermaneuverability, and cutting-edge avionics push the SU-35 beyond limits.
+        </p>
+
+        <div className="grid grid-cols-2 gap-[20rem] pt-40">
+          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
+            <h3 className="text-xl font-bold text-white">2,500 km/h</h3>
+            <p className="text-gray-400">Top Speed</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
+            <h3 className="text-xl font-bold text-white">11,000 km</h3>
+            <p className="text-gray-400">Range</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
+            <h3 className="text-xl font-bold text-white">12</h3>
+            <p className="text-gray-400">Hardpoints</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
+            <h3 className="text-xl font-bold text-white">30mm</h3>
+            <p className="text-gray-400">Cannon</p>
+          </div>
+        </div>
+      </section>
+
+      <div className='absolute bottom-0 w-full flex justify-center'>
+        <h2 className="text-8xl font-bold mb-6 text-white text-center">DOMINATE THE SKY</h2>
+      </div>
     </div>
   );
 }
