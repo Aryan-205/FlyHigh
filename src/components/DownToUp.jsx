@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useScroll, useTransform } from 'motion/react'; // Correct import path
+import { useScroll, useTransform, useSpring } from 'motion/react'; // Correct import path
 import * as THREE from 'three';
 import { getModel } from '../models/model.js';
 
@@ -13,7 +13,12 @@ export default function DownToUp(){
     offset: ['start start', 'end end'],
   });
 
-  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const springMovement = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 30,
+  })
+
+  const progress = useTransform(springMovement, [0, 1], [0, 1]);
 
   useEffect(() => {
     if (!mountRef2.current || !sectionRef.current) return;
@@ -47,7 +52,7 @@ export default function DownToUp(){
     const startAirplanePos = new THREE.Vector3(0, 25, 0);
     const endAirplanePos = new THREE.Vector3(0, 25, -150);
 
-    getModel('/SU-35WFM.glb').then(gltf => {
+    getModel('/SU-35WFM(1).glb').then(gltf => {
       const airplaneModel = gltf.scene.clone(true);
       airplaneModel.position.set(0, 25, 0);
       airplaneModel.rotation.y = Math.PI/2;
@@ -56,7 +61,7 @@ export default function DownToUp(){
       scene.add(airplaneModel);
     });
 
-    getModel('/airport.glb').then(gltf => {
+    getModel('/airport(1).glb').then(gltf => {
       const airportModel = gltf.scene.clone(true);
       airportModel.scale.setScalar(0.25);
       airportModel.position.set(3110, 0, 0);
@@ -98,7 +103,7 @@ export default function DownToUp(){
   }, [progress]);
 
   return (
-    <div ref={sectionRef} className="relative h-[200vh]" id="section2">
+    <div ref={sectionRef} className="relative h-[250vh]" id="section2">
       <div className="sticky top-0 h-screen w-full" ref={mountRef2}/>
     </div>
   );

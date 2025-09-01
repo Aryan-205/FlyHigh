@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useScroll, useTransform } from 'motion/react'; // Correct import path
+import { useScroll, useTransform, motion, useSpring } from 'motion/react'; // Correct import path
 import * as THREE from 'three';
 import { getModel } from '../models/model.js';
 
@@ -13,7 +13,12 @@ export default function TopDownScene(){
     offset: ['start start', 'end end'],
   });
 
-  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const springMovement = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 30,
+  })
+
+  const progress = useTransform(springMovement, [0, 1], [0, 1]);
 
   useEffect(() => {
     if (!mountRef2.current || !sectionRef.current) return;
@@ -43,7 +48,7 @@ export default function TopDownScene(){
     }
     mountRef2.current.appendChild(renderer.domElement);
 
-    getModel('/SU-35WFM.glb').then(gltf => {
+    getModel('/SU-35WFM(1).glb').then(gltf => {
       const airplaneModel = gltf.scene.clone(true);
       airplaneModel.position.set(0, 25, 0);
       airplaneModel.rotation.y = Math.PI/2;
@@ -52,7 +57,7 @@ export default function TopDownScene(){
       scene.add(airplaneModel);
     });
 
-    getModel('/airport.glb').then(gltf => {
+    getModel('/airport(1).glb').then(gltf => {
       const airportModel = gltf.scene.clone(true);
       airportModel.scale.setScalar(0.25);
       airportModel.position.set(3110, 0, 0);
@@ -93,9 +98,11 @@ export default function TopDownScene(){
   }, [progress]);
 
   return (
-    <div ref={sectionRef} className="relative h-[200vh]" id="section2">
+    <div ref={sectionRef} className="relative h-[250vh]" id="section2">
       <img src="/cloudimg1" className='absolute top-0 z-10' alt="" />
       <div className="sticky top-0 h-screen w-full z-0" ref={mountRef2}/>
+      <motion.p whileInView={{opacity:1}} transition={{duration:2}} className='text-5xl font-extrabold text-white text-center top-60 left-20 tracking-wider absolute z-0 vertical-stretch'>The SU-35 Flanker</motion.p>
+      <motion.p className='text-2xl font-semibold text-white text-center top-80 left-20 tracking-wider absolute z-0 vertical-stretch'>Master of the sky. A Force to be reckoned with</motion.p>
     </div>
   );
 }
