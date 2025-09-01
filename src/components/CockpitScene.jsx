@@ -158,6 +158,14 @@ export default function CockpitScene(){
           className="absolute top-0 left-0 h-full w-full z-10"
         />
       </div>
+      <div className='absolute bottom-0 flex justify-center items-center flex-col w-full h-20 bg-transparent z-[999] backdrop-blur-sm border-t border-white'>
+                <p className='text-2xl font-medium'>Aryan Bola</p>
+                <div className='flex justify-center items-center gap-4'>
+                    <a href="https://x.com/BolaJi_69" target='_blank'><img src="/twitterLight.png" className='w-4 h-4 object-contain' alt="" /></a>
+                    <a href="https://www.linkedin.com/in/aryan-bola-a95913316/" target='_blank'><img src="/linkedin.png" className='w-4 h-4 object-contain' alt="" /></a>
+                    <a href="https://github.com/Aryan-205" target='_blank'><img src="/githubLight.png" className='w-4 h-4 object-contain' alt="" /></a>
+                </div>
+            </div>
     </div>
   );
 }

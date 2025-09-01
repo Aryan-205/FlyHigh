@@ -109,20 +109,20 @@ export default function TopDownScene(){
         </p>
 
         <div className="grid grid-cols-2 gap-[20rem] pt-40">
-          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
-            <h3 className="text-xl font-bold text-white">2,500 km/h</h3>
+          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
+            <h3 className="text-xl font-bold text-gray-200">2,500 km/h</h3>
             <p className="text-gray-400">Top Speed</p>
           </div>
-          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
-            <h3 className="text-xl font-bold text-white">11,000 km</h3>
+          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
+            <h3 className="text-xl font-bold text-gray-200">11,000 km</h3>
             <p className="text-gray-400">Range</p>
           </div>
-          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
-            <h3 className="text-xl font-bold text-white">12</h3>
+          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
+            <h3 className="text-xl font-bold text-gray-200">12</h3>
             <p className="text-gray-400">Hardpoints</p>
           </div>
-          <div className="p-4 rounded-2xl bg-gray-800 shadow-lg text-center w-60">
-            <h3 className="text-xl font-bold text-white">30mm</h3>
+          <div className="p-4 rounded-2xl border border-gray-400 backdrop-blur-md text-center w-60">
+            <h3 className="text-xl font-bold text-gray-200">30mm</h3>
             <p className="text-gray-400">Cannon</p>
           </div>
         </div>
