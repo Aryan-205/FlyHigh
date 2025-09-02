@@ -76,7 +76,7 @@ export default function CockpitScene(){
     mountRef2.current.appendChild(renderer.domElement);
 
     // Load model
-    getModel('/SU-35WFMWOLG(1).glb').then(gltf => {
+    getModel('/jetWithoutLanding.glb').then(gltf => {
       const airplaneModel = gltf.scene.clone(true);
       airplaneModel.position.set(0, 0, 0);
       airplaneRef.current = airplaneModel;

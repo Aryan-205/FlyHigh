@@ -37,7 +37,7 @@ export default function LandingPage(){
       }
       mountRef.current.appendChild(renderer.domElement);
 
-      getModel('/SU-35WFMWOLG(1).glb').then(gltf => {
+      getModel('/jetWithoutLanding.glb').then(gltf => {
         const airplaneModel = gltf.scene.clone(true);
         airplaneModel.position.set(0, 0, 0);
         airplaneModel.rotation.x = Math.PI/4

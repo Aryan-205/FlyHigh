@@ -52,7 +52,7 @@ export default function DownToUp(){
     const startAirplanePos = new THREE.Vector3(0, 25, 0);
     const endAirplanePos = new THREE.Vector3(0, 25, -150);
 
-    getModel('/SU-35WFM(1).glb').then(gltf => {
+    getModel('/jetWithLanding.glb').then(gltf => {
       const airplaneModel = gltf.scene.clone(true);
       airplaneModel.position.set(0, 25, 0);
       airplaneModel.rotation.y = Math.PI/2;

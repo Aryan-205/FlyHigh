@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useScroll, useTransform, motion, useSpring } from 'motion/react'; // Correct import path
 import * as THREE from 'three';
 import { getModel } from '../models/model.js';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 export default function TopDownScene(){
   const mountRef2 = useRef(null);
@@ -48,7 +49,7 @@ export default function TopDownScene(){
     }
     mountRef2.current.appendChild(renderer.domElement);
 
-    getModel('/SU-35WFM(1).glb').then(gltf => {
+    getModel('/jetWithLanding.glb').then(gltf => {
       const airplaneModel = gltf.scene.clone(true);
       airplaneModel.position.set(0, 25, 0);
       airplaneModel.rotation.y = Math.PI/2;
@@ -64,6 +65,22 @@ export default function TopDownScene(){
       airportModel.position.set(0, 0, -6000);
       scene.add(airportModel);
     });
+
+    // PMREM generator makes HDR environment usable
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+
+    new RGBELoader()
+      .setPath('/hdrs/') // your folder
+      .load('citrus_orchard_road_puresky_2k.hdr', (texture) => {
+        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+
+        scene.background = envMap;   // optional: shows as skybox
+        scene.environment = envMap;  // reflections & lighting
+
+        texture.dispose();
+        pmremGenerator.dispose();
+      });
 
     let frameId;
     const animate = () => {
