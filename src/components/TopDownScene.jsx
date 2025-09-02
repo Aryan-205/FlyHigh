@@ -24,10 +24,10 @@ export default function TopDownScene(){
     if (!mountRef2.current || !sectionRef.current) return;
     
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 10000);
+    const camera = new THREE.PerspectiveCamera(45, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 6000);
     
     const startCamPos = new THREE.Vector3(0, 350, 0);
-    const endCamPos = new THREE.Vector3(0, 2, 250);
+    const endCamPos = new THREE.Vector3(0, 8, 250);
     camera.position.copy(startCamPos);
 
     const light = new THREE.AmbientLight(0xffffff, 1);
@@ -57,10 +57,11 @@ export default function TopDownScene(){
       scene.add(airplaneModel);
     });
 
-    getModel('/airport(1).glb').then(gltf => {
+    getModel('/runway.glb').then(gltf => {
       const airportModel = gltf.scene.clone(true);
-      airportModel.scale.setScalar(0.25);
-      airportModel.position.set(3110, 0, 0);
+      airportModel.scale.setScalar(7);
+      airportModel.rotation.y = Math.PI / 2
+      airportModel.position.set(0, 0, -6000);
       scene.add(airportModel);
     });
 

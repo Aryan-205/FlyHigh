@@ -24,7 +24,7 @@ export default function DownToUp(){
     if (!mountRef2.current || !sectionRef.current) return;
     
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 10000);
+    const camera = new THREE.PerspectiveCamera(45, mountRef2.current.clientWidth / mountRef2.current.clientHeight, 0.1, 2000);
     camera.rotation.z = Math.PI
     
     const startCamPos = new THREE.Vector3(0, 2, -250);
@@ -61,10 +61,11 @@ export default function DownToUp(){
       scene.add(airplaneModel);
     });
 
-    getModel('/airport(1).glb').then(gltf => {
+    getModel('/runway.glb').then(gltf => {
       const airportModel = gltf.scene.clone(true);
-      airportModel.scale.setScalar(0.25);
-      airportModel.position.set(3110, 0, 0);
+      airportModel.scale.setScalar(5);
+      airportModel.rotation.y = Math.PI / 2
+      airportModel.position.set(0, 0, 0);
       scene.add(airportModel);
     });
 
